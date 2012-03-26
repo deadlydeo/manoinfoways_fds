@@ -28,9 +28,9 @@ public class AdminUI extends Canvas {
 		EditDoctorUI editDoc = new EditDoctorUI();
 		tTab2.setPane(editDoc);
 		
-		Tab tTab3 = new Tab("Transcriber Information");
-		TranscriberInformationWidget transcriberInformationWidget = new TranscriberInformationWidget();
-		tTab3.setPane(transcriberInformationWidget);
+//		Tab tTab3 = new Tab("Transcriber Information");
+//		TranscriberInformationWidget transcriberInformationWidget = new TranscriberInformationWidget();
+//		tTab3.setPane(transcriberInformationWidget);
 		
 //		Tab tTab4 = new Tab("Edit Transcriber Info");
 //		EditTranscriberUI editTranscriber = new EditTranscriberUI();
@@ -43,7 +43,7 @@ public class AdminUI extends Canvas {
 		tabSet.addTab(tTab0);
 		tabSet.addTab(tTab1);
 		tabSet.addTab(tTab2);
-		tabSet.addTab(tTab3);
+//		tabSet.addTab(tTab3);
 //		tabSet.addTab(tTab4);
 		tabSet.addTab(tTab5);
 		
