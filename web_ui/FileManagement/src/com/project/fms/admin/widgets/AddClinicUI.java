@@ -7,36 +7,62 @@ import com.project.fms.admin.widgets.data.ClinicData;
 import com.smartgwt.client.data.DSCallback;
 import com.smartgwt.client.data.DSRequest;
 import com.smartgwt.client.data.DSResponse;
+import com.smartgwt.client.types.SelectionType;
 import com.smartgwt.client.util.SC;
 import com.smartgwt.client.widgets.IButton;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.form.ValuesManager;
 import com.smartgwt.client.widgets.form.fields.DateItem;
+import com.smartgwt.client.widgets.form.fields.SelectItem;
 import com.smartgwt.client.widgets.form.fields.TextAreaItem;
 import com.smartgwt.client.widgets.form.fields.TextItem;
 import com.smartgwt.client.widgets.layout.VLayout;
 import com.smartgwt.client.widgets.tab.Tab;
 import com.smartgwt.client.widgets.tab.TabSet;
+import com.smartgwt.client.widgets.toolbar.ToolStrip;
 
 public class AddClinicUI extends VLayout {
 
 	private ClinicConnectionDetailsForm clinicConnectionFormWidget;
 
 	private ClinicManagersDataForm clinicManagersWidget;
+	
+	private ClinicDataForm clinicDataFormWidget;
+	
+	private Tab clinicDataTab ;
 
 	public AddClinicUI() {
 
 		setMargin(10);
 		setMembersMargin(10);
+		
+		ToolStrip toolStrip = new ToolStrip(); 
+		
+		IButton addButton = new IButton("Add");
+		IButton editButton = new IButton("Edit");
+		
+		addButton.setActionType(SelectionType.RADIO);
+		editButton.setActionType(SelectionType.RADIO);
+		
+		addButton.setRadioGroup("selectClinicOperation");
+		editButton.setRadioGroup("selectClinicOperation");
+		
+		addButton.setShowRollOver(false);
+		editButton.setShowRollOver(false);
+		toolStrip.addMember(addButton);
+		toolStrip.addMember(editButton);
+		
+		addMember(toolStrip);
+		
 		final ValuesManager formValuesManager = new ValuesManager();
 
 		final TabSet clinicTabSet = new TabSet();
 		clinicTabSet.setWidth100();
 		clinicTabSet.setHeight("80%");
 
-		Tab clinicDataTab = new Tab("Clinic Data");
-		final ClinicDataForm clinicDataFormWidget = new ClinicDataForm();
+		clinicDataTab = new Tab("Clinic Data");
+		clinicDataFormWidget = new ClinicDataForm("add");
 		// clinicDataFormWidget.setValuesManager(formValuesManager);
 		clinicDataTab.setPane(clinicDataFormWidget);
 
@@ -89,11 +115,20 @@ public class AddClinicUI extends VLayout {
 
 				// Submitting Clinic Data values
 
+				String clinicAbbr="";
+				if(clinicDataFormWidget.getCurrentFormType().equalsIgnoreCase("add")){
+					clinicAbbr = ((TextItem) clinicDataFormWidget
+							.getItem("clinicAbbr"))
+							.getValueAsString().toUpperCase();
+				}else{
+					clinicAbbr = ((SelectItem) clinicDataFormWidget
+							.getItem("clinicAbbr"))
+							.getSelectedRecord()
+							.getAttributeAsString("clinicAbbr").toUpperCase();
+				}
 				clinicDataFormWidget.clinicDataDs.addData(
 						new ClinicData(
-								((TextItem) clinicDataFormWidget
-										.getItem("clinicAbbr"))
-										.getValueAsString().toUpperCase(),
+								clinicAbbr,
 								((TextItem) clinicDataFormWidget
 										.getItem("clinicName"))
 										.getValueAsString(),
@@ -127,7 +162,41 @@ public class AddClinicUI extends VLayout {
 			}
 		});
 		addMember(submitButton);
+		addButton.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				// TODO Auto-generated method stub
+				clinicDataFormWidget.clearValues();
+				clinicConnectionFormWidget.clearValues();
+				clinicManagersWidget.clearValues();
+				clinicTabSet.removeTab(0);
+				clinicDataFormWidget = new ClinicDataForm("add");
+				clinicDataTab = new Tab("Clinic Data");
+				clinicDataTab.setPane(clinicDataFormWidget);
+				clinicTabSet.addTab(clinicDataTab, 0);
+				clinicTabSet.selectTab(0);
+			}
+		});
+		editButton.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				// TODO Auto-generated method stub
+				clinicDataFormWidget.clearValues();
+				clinicConnectionFormWidget.clearValues();
+				clinicManagersWidget.clearValues();
+				
+				clinicTabSet.removeTab(0);
+				clinicDataFormWidget = new ClinicDataForm("edit");
+				clinicDataTab = new Tab("Clinic Data");
+				clinicDataTab.setPane(clinicDataFormWidget);
+				clinicTabSet.addTab(clinicDataTab, 0);
+				clinicTabSet.selectTab(0);
+			}
+		});
 	}
+	
 
 	// Submitting Clinic Connection Details
 	private void storeConnectionDetails(String clinicId) {
