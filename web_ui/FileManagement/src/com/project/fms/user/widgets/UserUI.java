@@ -35,7 +35,6 @@ public class UserUI extends Canvas {
 		Tab prooferTab = null;
 		Tab qaTab = null;
 		int roleTypeId = SessionHandler.getSessionInstance().getTypeId();
-		SC.say("Role: "+ roleTypeId);
 		try {
 			Integer temp = Integer.valueOf(roleTypeId);
 			switch(roleTypeId){
@@ -138,7 +137,7 @@ public class UserUI extends Canvas {
 		return prooferTab;
 	}
 	public Tab getQaTab(Tab qaTab, QaUI qaWidget){
-		qaTab = new Tab("Proofer Screen");
+		qaTab = new Tab("QA Screen");
 		qaWidget = new QaUI();
 		qaTab.setPane(qaWidget);
 		return qaTab;
