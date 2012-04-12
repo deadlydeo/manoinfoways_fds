@@ -1,5 +1,6 @@
 package com.project.fms.user.widgets;
 
+import com.project.fms.user.data.SessionHandler;
 import com.smartgwt.client.widgets.form.DynamicForm;
 import com.smartgwt.client.widgets.form.fields.ButtonItem;
 import com.smartgwt.client.widgets.form.fields.HeaderItem;
@@ -15,22 +16,29 @@ public class LoginForm extends DynamicForm{
   
         HeaderItem header = new HeaderItem();  
         header.setDefaultValue("Login to File Systems Management");  
-  
-        PasswordItem passwordItem = new PasswordItem("password", "Password: ");
-        TextItem loginId = new TextItem("loginID", "Login ID: ");
         
-//        loginId.setRequired(true);
-//        passwordItem.setRequired(true);
+        final TextItem loginId = new TextItem("loginID", "Login ID: ");
+        final PasswordItem passwordItem = new PasswordItem("password", "Password: ");
+        ButtonItem submitButton = new ButtonItem();
         
-        ButtonItem submitButton = new ButtonItem();  
+        loginId.setRequired(true);
+        passwordItem.setRequired(true);
         submitButton.setTitle("Submit"); 
+        
         submitButton.addClickHandler(new ClickHandler() {
 			
 			@Override
 			public void onClick(ClickEvent event) {
 				// TODO Auto-generated method stub
-				if(validate() == true)
-					submit();
+				if(validate() == true){
+					if(loginId.getValue().toString().equalsIgnoreCase(passwordItem.getValue().toString())){
+						SessionHandler.getSessionInstance().setUserId(loginId.getValue().toString());
+						SessionHandler.getSessionInstance().setTypeId((Integer.parseInt(passwordItem.getValue().toString())));
+						submit();
+					}
+				}
+				
+				
 			}
 		});
         setFields(header,loginId,  passwordItem, submitButton);  
