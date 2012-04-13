@@ -37,6 +37,7 @@ public class UserUI extends Canvas {
 		int roleTypeId = SessionHandler.getSessionInstance().getTypeId();
 		try {
 			//Do not remove this. Though we are not using it, it will check if the roleType is not null
+			
 			Integer temp = Integer.valueOf(roleTypeId);
 			switch(roleTypeId){
 			case 1:

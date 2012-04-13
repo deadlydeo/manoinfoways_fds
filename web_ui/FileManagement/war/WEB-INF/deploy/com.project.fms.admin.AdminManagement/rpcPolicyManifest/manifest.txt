@@ -1,0 +1,2 @@
+# Module com.project.fms.admin.AdminManagement
+# RPC service class, partial path of RPC policy file
