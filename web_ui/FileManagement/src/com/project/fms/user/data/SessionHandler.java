@@ -3,7 +3,6 @@
  */
 package com.project.fms.user.data;
 
-import com.project.fms.admin.widgets.data.SessionData;
 
 /**
  * @author deadlydeo

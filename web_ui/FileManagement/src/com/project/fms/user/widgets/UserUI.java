@@ -6,7 +6,6 @@ package com.project.fms.user.widgets;
 import com.project.fms.user.data.SessionHandler;
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.types.Side;
-import com.smartgwt.client.util.SC;
 import com.smartgwt.client.widgets.Canvas;
 import com.smartgwt.client.widgets.layout.VLayout;
 import com.smartgwt.client.widgets.tab.Tab;
@@ -38,6 +37,7 @@ public class UserUI extends Canvas {
 		try {
 			//Do not remove this. Though we are not using it, it will check if the roleType is not null
 			
+			@SuppressWarnings("unused")
 			Integer temp = Integer.valueOf(roleTypeId);
 			switch(roleTypeId){
 			case 1:
@@ -106,7 +106,7 @@ public class UserUI extends Canvas {
 				//redirect to home page
 				break;
 			}
-		} catch (NullPointerException nPe) {
+		} catch (Exception exE) {
 			//redirect to home page
 		}
 		

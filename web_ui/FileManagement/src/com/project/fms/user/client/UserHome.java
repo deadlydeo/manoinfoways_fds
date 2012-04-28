@@ -1,11 +1,9 @@
 package com.project.fms.user.client;
 
 import com.google.gwt.core.client.EntryPoint;
-import com.project.fms.user.data.SessionHandler;
 import com.project.fms.user.widgets.LoginForm;
 import com.project.fms.user.widgets.UserUI;
 import com.smartgwt.client.types.Alignment;
-import com.smartgwt.client.util.SC;
 import com.smartgwt.client.widgets.Img;
 import com.smartgwt.client.widgets.form.events.SubmitValuesEvent;
 import com.smartgwt.client.widgets.form.events.SubmitValuesHandler;
