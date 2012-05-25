@@ -200,14 +200,10 @@ public class AddClinicUI extends VLayout {
 						((TextItem) clinicManagersWidget
 								.getItem("emailForInvoices"))
 								.getValueAsString());
-				String clinicAbbr="";
-				if(clinicDataFormWidget.getCurrentFormType().equalsIgnoreCase("add")){
-					clinicAbbr = ((TextItem) clinicDataFormWidget.getItem("clinicAbbr")).getValueAsString().toUpperCase();
-				}else{
-					clinicAbbr = ((SelectItem) clinicDataFormWidget.getItem("clinicAbbr")).getSelectedRecord().getAttributeAsString("clinicAbbr");
-				}
+
 				ClinicData clinicData = new ClinicData(
-						clinicAbbr,
+						((TextItem) clinicDataFormWidget.getItem("clinicAbbr"))
+								.getValueAsString().toUpperCase(),
 						((TextItem) clinicDataFormWidget.getItem("clinicName"))
 								.getValueAsString(),
 						((TextAreaItem) clinicDataFormWidget

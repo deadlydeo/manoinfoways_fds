@@ -6,7 +6,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import com.project.fms.admin.widgets.data.DoctorData;
-import com.smartgwt.client.core.Function;
 import com.smartgwt.client.data.DSRequest;
 import com.smartgwt.client.data.OperationBinding;
 import com.smartgwt.client.data.RestDataSource;
@@ -158,14 +157,7 @@ public class EditDoctor extends Canvas {
 			public void onClick(ClickEvent event) {
 				if (doctorGrid.hasChanges())
 				{
-					doctorGrid.saveAllEdits(new Function() {
-						
-						@Override
-						public void execute() {
-							// TODO Auto-generated method stub
-							SC.say("Grid Saved Successfully");
-						}
-					});
+					doctorGrid.saveAllEdits();
 				}
 			}
 		});
